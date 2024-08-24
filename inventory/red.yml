@@ -1,0 +1,15 @@
+---
+all:
+  children:
+    red:
+      hosts:
+        red1:
+          ansible_host: 129.21.21.111
+          no_dns: True
+          ansible_become: yes
+          ansible_user: ubuntu
+        red2:
+          ansible_host: 129.21.21.115
+          no_dns: True
+          ansible_become: yes
+          ansible_user: ubuntu

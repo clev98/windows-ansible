@@ -1,0 +1,55 @@
+---
+- name: Copy garbo to box
+  ansible.windows.win_copy:
+    src: cyber.png
+    dest: 'C:\Users\advisor.YOKOHAMA\Pictures\cyber.png'
+    
+- name: Copy garbo to box
+  ansible.windows.win_copy:
+    src: cyber2.png
+    dest: 'C:\Users\advisor.YOKOHAMA\Pictures\thelights.png'
+    
+- name: Copy garbo to box
+  ansible.windows.win_copy:
+    src: cyber3.png
+    dest: 'C:\Users\advisor.YOKOHAMA\Pictures\blue.png'
+    
+- name: Copy garbo to box
+  ansible.windows.win_copy:
+    src: cyber4.png
+    dest: 'C:\Users\advisor.YOKOHAMA\Pictures\busstop.png'
+
+- name: Copy garbo to box
+  ansible.windows.win_copy:
+    src: cyber5.png
+    dest: 'C:\Users\advisor.YOKOHAMA\Pictures\signs.png'
+    
+- name: Copy garbo to box
+  ansible.windows.win_copy:
+    src: cyber6.png
+    dest: 'C:\Users\advisor.YOKOHAMA\Pictures\robot.png'
+    
+- name: Copy garbo to box
+  ansible.windows.win_copy:
+    src: character_arc.txt
+    dest: 'C:\Users\advisor.YOKOHAMA\Documents\character_arc.txt'
+    
+- name: Copy garbo to box
+  ansible.windows.win_copy:
+    src: quip.txt
+    dest: 'C:\Users\advisor.YOKOHAMA\Pictures\quip.txt'
+    
+- name: Copy garbo to box
+  ansible.windows.win_copy:
+    src: reveal.txt
+    dest: 'C:\Users\advisor.YOKOHAMA\Pictures\reveal.txt'
+
+- name: Copy garbo to box
+  ansible.windows.win_copy:
+    src: 'story idea.txt'
+    dest: 'C:\Users\advisor.YOKOHAMA\Pictures\story idea.txt'
+    
+- name: Copy garbo to box
+  ansible.windows.win_copy:
+    src: 'weird.txt'
+    dest: 'C:\Users\advisor.YOKOHAMA\Pictures\weird.txt'

@@ -1,0 +1,23 @@
+---
+
+#- name: Copy Over Path
+#  ansible.windows.win_copy:
+#    src: files/ssppath.ps1
+#    dest: C:/ssppath.ps1
+
+#- name: Run Patch
+#  ansible.windows.win_command: 'powershell.exe C:/ssppath.ps1'
+
+- name: Add SSP Registry Key
+  ansible.windows.win_regedit:
+    path: HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System\CredSSP\Parameters
+    name: AllowEncryptionOracle
+    #data: 2
+    #type: dword
+    state: absent
+    delete_key: yes
+  register: services_result
+
+- name: Restart If Needed
+  ansible.windows.win_reboot:
+  #when: services_result.data_changed == true

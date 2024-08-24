@@ -1,0 +1,14 @@
+---
+# windows_create_local_users
+win_createlocalusers_local_users: 
+win_createlocalusers_local_admins: "{{ team_local_user }}"
+win_createlocalusers_team_password: "{{ team_password }}"
+
+win_setwallpaper_users: "{{ team_local_user }}"
+win_setwallpaper_team_password: "{{ team_password }}"
+
+# windows_join_domain
+win_joindomain_team_password: "aw8kfE5menCYjU5aAffXbGVufMU56mdRGbN!"
+win_joindomain_netbios: "{{ enterprise_netbios }}"
+win_joindomain_dc_ip: "{{ enterprise_dc_ip|string }}"
+win_joindomain_domain: "{{ domain }}"

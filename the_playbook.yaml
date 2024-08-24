@@ -1,0 +1,57 @@
+---
+# //\\//\\//\\//\\ Windows //\\//\\//\\//\\
+- hosts: windows
+  roles:
+    - windows_deploy_standards
+  tags:
+    - never
+    - windows
+    - windows_standards
+- hosts: yokohama:tokyo:team_koth
+  roles:
+    - windows_set_wallpaper
+  tags:
+    - never
+    - windows
+    - windows_wallpaper
+- hosts: izanagi:tokyo
+  roles:
+    - windows_deploy_dc
+    - windows_deploy_dns_server
+  tags:
+    - never
+    - windows
+    - windows_ad
+# Secondary AD Server
+- hosts: izanami
+  roles:
+    - windows_deploy_second_dc
+  tags:
+    - never
+    - windows
+    - windows_secondary_ad
+- hosts: windows:&team_hosts:team_koth:yokohama:!tokyo:!izanami:!izanagi
+  roles:
+    - windows_create_local_users
+    - windows_join_domain
+  tags:
+    - never
+    - windows
+    - windows_join_domain
+# Mail Server
+- hosts: amaterasu
+  roles:
+    - windows_deploy_hmail_server
+  tags:
+    - never
+    - windows
+    - windows_mail
+# IIS Servers
+- hosts: raijin:fujin
+  roles:
+    - windows_deploy_nopcommerce
+  tags:
+    - never
+    - windows
+    - windows_iis
+# //\\//\\//\\//\\ Windows //\\//\\//\\//\\

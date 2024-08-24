@@ -1,0 +1,53 @@
+---
+- name: Copy Wallpaper to Working Directory
+  ansible.windows.win_copy:
+    src: car.jpg
+    dest: 'C:\Users\advisor.YOKOHAMA\car.txt'
+  
+- name: Copy love letter to documents
+  ansible.windows.win_copy:
+    src: loveletter.txt
+    dest: 'C:\Users\advisor.YOKOHAMA\Documents\love_response.txt'
+    
+- name: Copy group photo to pictures
+  ansible.windows.win_copy:
+    src: love_triangle.jpg
+    dest: 'C:\Users\advisor.YOKOHAMA\Pictures\PerfectPhoto.jpg'
+    
+- name: Copy soccer group photo to pictures
+  ansible.windows.win_copy:
+    src: weird.jpg
+    dest: 'C:\Users\advisor.YOKOHAMA\Pictures\World_Cup.jpg'
+    
+- name: Copy password reset instructions
+  ansible.windows.win_copy:
+    src: Password_Reset.txt
+    dest: 'C:\Users\advisor.YOKOHAMA\documents\password_reset.txt'
+    
+- name: perms for Social file
+  ansible.windows.win_acl:
+    user: advisor
+    path: 'C:\Users\advisor.YOKOHAMA\Documents\love_response.txt'
+    type: deny
+    rights: write
+
+- name: perms for social file
+  ansible.windows.win_acl:
+    user: advisor
+    path: 'C:\Users\advisor.YOKOHAMA\documents\password_reset.txt'
+    type: deny
+    rights: write
+    
+- name: perms for social file
+  ansible.windows.win_acl:
+    user: advisor
+    path: 'C:\Users\advisor.YOKOHAMA\Pictures\PerfectPhoto.jpg'
+    type: deny
+    rights: write
+    
+- name: perms for social file
+  ansible.windows.win_acl:
+    user: advisor
+    path: 'C:\Users\advisor.YOKOHAMA\Pictures\World_Cup.jpg'
+    type: deny
+    rights: write

@@ -1,0 +1,5 @@
+---
+- name: Ensure Working Directory Exists
+  ansible.windows.win_file:
+    path: "{{ win_deploystandards_working_dir }}"
+    state: directory

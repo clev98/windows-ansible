@@ -1,0 +1,22 @@
+---
+- name: Create ICMPv4 Exception in Firewall (> Windows 7/2012)
+  community.windows.win_firewall_rule:
+    name: ICMP
+    protocol: ICMPv4
+    action: allow
+    direction: in
+    state: present
+    profiles:
+    - domain
+    - private
+    - public
+    localip: any
+    remoteip: any
+    enabled: yes
+  when: ansible_distribution_major_version|int > 6
+
+- name: Create ICMPv4 Exception in Firewall (<= Windows 7/2012)
+  ansible.windows.win_command: cmd.exe
+  args:
+    stdin: 'netsh advfirewall firewall add rule name="ICMP Allow incoming V4 echo request" protocol=icmpv4:8,any dir=in action=allow'
+  when: ansible_distribution_major_version|int <= 6

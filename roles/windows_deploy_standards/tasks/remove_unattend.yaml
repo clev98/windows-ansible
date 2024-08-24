@@ -1,0 +1,5 @@
+---
+- name: Remove unattend.xml
+  ansible.windows.win_file:
+    path: C:\unattend.xml
+    state: absent

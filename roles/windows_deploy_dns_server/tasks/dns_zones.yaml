@@ -1,0 +1,43 @@
+---
+- name: Check if Computer is a DC
+  ansible.windows.win_shell: (Get-CimInstance -ClassName Win32_OperatingSystem).ProductType
+  register: check
+
+- name: Set dc_check Fact
+  ansible.builtin.set_fact:
+    dc_check: "{{ check.stdout | trim }}"
+
+- name: Create DNS Forward Zone For Domain
+  community.windows.win_dns_zone:
+    name: "{{ item }}"
+    replication: none
+    type: primary
+  loop:
+    "{{ dns_domains }}"
+  when: item not in inventory_hostname or dc_check != "2"
+
+- name: Copy Over DNS Reverse Zone Script
+  ansible.windows.win_copy:
+    src: add_reverse_zones.ps1
+    dest: '{{ win_deploydnsserver_working_dir }}\add_reverse_zone.ps1'
+
+- name: Ensure DNS Reverse Zones Exist
+  ansible.windows.win_command: powershell.exe
+  args:
+    stdin: '{{ win_deploydnsserver_working_dir }}\add_reverse_zone.ps1 -id {{ item.subnet }}'
+  loop:
+    "{{ dns_zones }}"
+  when: dc_check == "2"
+
+- name: Ensure DNS Reverse Zones Exist
+  ansible.windows.win_command: powershell.exe
+  args:
+    stdin: '{{ win_deploydnsserver_working_dir }}\add_reverse_zone.ps1 -id {{ item.subnet }} -zonefile {{ item.ptr }}'
+  loop:
+    "{{ dns_zones }}"
+  when: dc_check != "2"
+
+- name: Remove The DNS Reverse Zone Script
+  ansible.windows.win_file:
+    path: '{{ win_deploydnsserver_working_dir }}\add_reverse_zone.ps1'
+    state: absent

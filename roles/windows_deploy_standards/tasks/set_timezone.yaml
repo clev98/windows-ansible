@@ -1,0 +1,10 @@
+---
+- name: Set Timezone to EST
+  community.windows.win_timezone:
+    timezone: Eastern Standard Time
+
+- name: Start NTP Service (w32time)
+  ansible.windows.win_service:
+    name: w32time
+    state: started
+    start_mode: auto

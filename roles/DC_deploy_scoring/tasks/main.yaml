@@ -1,0 +1,9 @@
+---
+- name: install web
+  ansible.builtin.include_tasks: install_web.yaml
+  
+- name: Create scoring html
+  ansible.builtin.include_tasks: install_scoring.yaml
+ 
+- name: perms
+  ansible.builtin.include_tasks: configure_permissions.yaml

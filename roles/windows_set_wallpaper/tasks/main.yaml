@@ -1,0 +1,3 @@
+---
+- name: Set Wallpaper
+  ansible.builtin.include_tasks: set_wallpaper.yaml

@@ -1,0 +1,11 @@
+---
+db_user: "{{ database_username }}"
+db_name: "{{ database_name }}"
+db_password: "{{ database_password }}"
+postgresql_data_dir: /var/lib/pgsql/data
+postgresql_user: postgres
+postgresql_group: postgres
+postgresql_bin_path: /usr/bin
+wordpress_db: "wordpress"
+wordpress_user: "wordpressuser"
+wordpress_password: "{{ team_password }}"

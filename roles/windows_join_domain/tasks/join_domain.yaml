@@ -1,0 +1,19 @@
+---
+- name: Set All Addresses To Point To DC For Address Resolution
+  ansible.windows.win_dns_client:
+    adapter_names: '*'
+    ipv4_addresses:
+    - "{{ win_joindomain_dc_ip }}"
+
+- name: Join Client To The Domain
+  ansible.windows.win_domain_membership:
+    dns_domain_name: "{{ win_joindomain_domain }}"
+    domain_admin_password: "{{ win_joindomain_team_password }}"
+    domain_admin_user: "{{ win_joindomain_netbios }}\\Administrator"
+    state: domain
+    hostname: "{{ inventory_hostname_short }}"
+  register: domain_result
+
+- name: Reboot If Needed
+  ansible.windows.win_reboot:
+  when: domain_result.reboot_required

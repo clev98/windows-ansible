@@ -1,0 +1,22 @@
+---
+# Password Info
+whiteteam_user: whiteteam
+whiteteam_password: D0nt-commit-sudoku-bruv
+
+ansible_password: "{{ whiteteam_password }}"
+ansible_user: "{{ whiteteam_user }}"
+
+# Domain Controller & Domain Info
+domain: "{{ inventory_hostname | replace(inventory_hostname_short, '') | replace('.', '', 1) }}"
+#fqdn: "{{ inventory_hostname }}"
+dc_ip: "10.{{ team_number|int }}.1.1"
+
+# Logging Info
+elastic_ver: 7.6.2
+logging_fqdn: "keubiko.{{ domain }}"
+logstash_host: "{{ logging_fqdn }}"
+es_api_basic_auth_username: whiteteam
+es_api_basic_auth_password: "{{ whiteteam_password }}"
+
+#palo alto info
+palo_alto_authcode: I3707396

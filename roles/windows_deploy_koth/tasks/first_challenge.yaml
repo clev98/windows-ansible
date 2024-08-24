@@ -1,0 +1,64 @@
+---
+- name: Create share directory
+  ansible.windows.win_file:
+    path: C:\Users\advisor.YOKOHAMA\sharing
+    state: directory
+     
+- name: Add public share
+  ansible.windows.win_share:
+    name: sharing
+    description: my share
+    path: C:\Users\advisor.YOKOHAMA\sharing
+    list: yes
+    full: everyone
+    
+- name: Copy powershell to share
+  ansible.windows.win_copy:
+    src: Password_change.ps1
+    dest: 'C:\Users\advisor.YOKOHAMA\sharing\hourly.ps1'
+
+- name: Copy password file to share
+  ansible.windows.win_copy:
+    src: random.txt
+    dest: 'C:\Users\advisor.YOKOHAMA\sharing\random.txt'
+    
+- name: Create task to run powershell
+  community.windows.win_scheduled_task:
+    name: Password Change
+    description: change my password :)
+    actions:
+    - path: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+      arguments: -ExecutionPolicy Unrestricted -NonInteractive -File C:\Users\advisor.YOKOHAMA\sharing\hourly.ps1
+    triggers:
+    - type: boot
+    username: SYSTEM
+    state: present
+    enabled: yes
+
+- name: perms for file 1
+  ansible.windows.win_acl:
+    user: everyone
+    path: C:\Users\advisor.YOKOHAMA\sharing\hourly.ps1
+    type: allow
+    rights: read
+
+- name: perms for file 1
+  ansible.windows.win_acl:
+    user: everyone
+    path: C:\Users\advisor.YOKOHAMA\sharing\hourly.ps1
+    type: deny
+    rights: write
+    
+- name: perms for file 2
+  ansible.windows.win_acl:
+    user: everyone
+    path: C:\Users\advisor.YOKOHAMA\sharing\random.txt
+    type: allow
+    rights: read,write
+    
+- name: perms for file 1
+  ansible.windows.win_acl:
+    user: advisor
+    path: C:\Users\advisor.YOKOHAMA\sharing\hourly.ps1
+    type: deny
+    rights: write, FullControl

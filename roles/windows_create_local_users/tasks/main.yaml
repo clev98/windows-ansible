@@ -1,0 +1,3 @@
+---
+- name: Add Local Users
+  ansible.builtin.include_tasks: local_users.yaml

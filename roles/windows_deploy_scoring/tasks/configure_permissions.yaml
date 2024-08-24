@@ -1,0 +1,20 @@
+---   
+- name: allow koth1 user
+  ansible.windows.win_acl:
+    user: advisor
+    path: 'C:\Users\advisor.YOKOHAMA\sharing\scoring_1.txt'
+    type: allow
+    rights: read,write
+    
+- name: allow koth2 user
+  ansible.windows.win_acl:
+    user: "{{ win_joindomain_domain }}\\headadvisor"
+    path: 'C:\Users\advisor.YOKOHAMA\sharing\scoring_2.txt'
+    type: allow
+    rights: read,write
+    
+-   ansible.windows.win_acl:
+    user: advisor
+    path: 'C:\Users\advisor.YOKOHAMA\sharing\scoring_2.txt'
+    type: deny
+    rights: read,write

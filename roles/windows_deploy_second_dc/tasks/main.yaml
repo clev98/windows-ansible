@@ -1,0 +1,6 @@
+---
+- name: Complete the prerequisites for DC promotion
+  ansible.builtin.include_tasks: dc_prereqs.yaml
+
+- name: Ensure the computer is promoted to DC status
+  ansible.builtin.include_tasks: dc_promo.yaml

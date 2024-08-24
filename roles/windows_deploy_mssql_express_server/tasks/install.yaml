@@ -1,0 +1,44 @@
+---
+- name: Install SQL Server Express
+  chocolatey.chocolatey.win_chocolatey:
+    name: sql-server-express
+    state: present
+    source: "{{ win_deploymssqlexpressserver_choco_server_source }}"
+  become: yes
+  become_user: whiteteam
+  become_method: runas
+
+- name: Enable SQL Server Named Pipes
+  ansible.windows.win_regedit:
+    path: HKLM:\Software\Microsoft\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQLServer\SuperSocketNetLib\Np
+    name: Enabled
+    data: 1
+    type: dword
+
+- name: Enable SQL Server TCP/IP
+  ansible.windows.win_regedit:
+    path: HKLM:\Software\Microsoft\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQLServer\SuperSocketNetLib\Tcp
+    name: Enabled
+    data: 1
+    type: dword
+  register: registry
+
+- name: Set SQL Server TcpPort
+  ansible.windows.win_regedit:
+    path: HKLM:\Software\Microsoft\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQLServer\SuperSocketNetLib\Tcp\IPAll
+    name: TcpPort
+    data: 1433
+    type: string
+
+- name: Set SQL Server DefaultServerPort
+  ansible.windows.win_regedit:
+    path: HKLM:\Software\Microsoft\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQLServer\SuperSocketNetLib\Tcp\IPAll
+    name: DefaultServerPort
+    data: 1433
+    type: string
+
+- name: Restart MS SQL Service
+  ansible.windows.win_service:
+    name: MSSQL$SQLEXPRESS
+    state: restarted
+  when: registry.data_changed

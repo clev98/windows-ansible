@@ -1,0 +1,9 @@
+---
+- name: Remove Old DNSServerForwarders
+  ansible.windows.win_shell: Get-DNSServerForwarder | Remove-DNSServerForwarder -ErrorAction SilentlyContinue
+  register: command_output
+  failed_when: command_output.rc != 0 and command_output.stderr != ""
+
+- name: Add New DNSServerForwarders
+  ansible.windows.win_shell: 'Add-DNSServerForwarder -IPAddress {{ item }}'
+  loop: "{{ win_deploydnsserver_forwarders }}"

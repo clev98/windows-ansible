@@ -1,0 +1,8 @@
+---
+- name: Copy Over Qemu Guest Agent
+  ansible.windows.win_copy:
+    src: files/qemu-ga-x86_64.msi
+    dest: "{{ win_deploystandards_working_dir }}/qemu-ga-x86_64.msi"
+
+- name: Install Guest Agent
+  ansible.windows.win_shell: Start-Process -FilePath "{{ win_deploystandards_working_dir }}/qemu-ga-x86_64.msi" -ArgumentList "/install /quiet /norestart" -Wait

@@ -1,0 +1,12 @@
+---
+- hosts: dns:choco
+  roles:
+    - windows_deploy_standards
+
+- hosts: dns
+  roles:
+    - windows_deploy_dns_server
+    
+- hosts: choco
+  roles:
+    - windows_deploy_chocolatey_server

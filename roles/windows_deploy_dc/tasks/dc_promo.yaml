@@ -1,0 +1,35 @@
+---
+- name: Create Domain
+  ansible.windows.win_domain:
+    dns_domain_name: "{{ win_deploydc_domain }}"
+    domain_netbios_name: "{{ win_deploydc_netbios }}"
+    safe_mode_password: "{{ win_deploydc_team_password }}"
+  register: domain_result
+
+- name: Restart if Needed
+  ansible.windows.win_reboot:
+  when: domain_result.reboot_required
+
+# This is necessary, Windows is dumb
+- name: Restart if Needed
+  ansible.windows.win_reboot:
+  when: domain_result.reboot_required
+
+- name: Promote DC
+  ansible.windows.win_domain_controller:
+    dns_domain_name: "{{ win_deploydc_domain }}"
+    domain_admin_password: "{{ win_deploydc_team_password }}"
+    domain_admin_user: "{{ win_deploydc_netbios }}\\Administrator"
+    safe_mode_password: "{{ win_deploydc_team_password }}"
+    install_dns: yes
+    state: domain_controller
+  register: dc_promo_result
+
+- name: Reboot If Needed
+  ansible.windows.win_reboot:
+  when: dc_promo_result.reboot_required
+
+- name: Set WinRM Back To Auto Start
+  ansible.windows.win_service:
+    name: WinRM
+    start_mode: auto

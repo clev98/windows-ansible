@@ -1,0 +1,493 @@
+---
+# In the future there should be a subgroup under all for the actual
+# host declerations, this will allow for say the ansible host below
+# to not interact with say the public inventory
+all:
+  vars:
+    #ansible_host: "{{ subbnet_ish }}{{ host_octets }}"
+    subbnet_ish: "PlaceHolder"
+    host_octets: "PlaceHolder"
+    team_number: "PlaceHolder"
+  children:
+  # Hosts
+    izanagi:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.1"
+        host_octets: "1"
+      hosts:
+        izanagi.team[01:15].kokka.jp:
+    izanami:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.2"
+        host_octets: "2"
+      hosts:
+        izanami.team[01:15].kokka.jp:
+    ugajin:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.3"
+        host_octets: "3"
+      hosts:
+        ugajin.team[01:15].kokka.jp:
+    amaterasu:
+      vars:
+        ansible_host: "172.16.{{ team_number|int }}.13"
+        host_octets: "13"
+      hosts:
+        amaterasu.team[01:15].kokka.jp:
+    fujin:
+      vars:
+        ansible_host: "172.16.{{ team_number|int }}.21"
+        host_octets: "21"
+      hosts:
+        fujin.team[01:15].kokka.jp:
+    raijin:
+      vars:
+        ansible_host: "172.16.{{ team_number|int }}.22"
+        host_octets: "22"
+      hosts:
+        raijin.team[01:15].kokka.jp:
+    uzume:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.4"
+        host_octets: "4"
+      hosts:
+        uzume.team[01:15].kokka.jp:
+    hachiman:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.5"
+        host_octets: "5"
+      hosts:
+        hachiman.team[01:15].kokka.jp:
+    kojin:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.6"
+        host_octets: "6"
+      hosts:
+        kojin.team[01:15].kokka.jp:
+    fudo:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.7"
+        host_octets: "7"
+      hosts:
+        fudo.team[01:15].kokka.jp:
+    keubiko:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.69"
+        host_octets: "69"
+      hosts:
+        keubiko.team[01:15].kokka.jp:
+    suijin:
+      vars:
+        ansible_host: "172.16.{{ team_number|int }}.1"
+        host_octets: "1"
+      hosts:
+        suijin.team[01:15].kokka.jp:
+    tenjin:
+      vars:
+        ansible_host: "172.16.{{ team_number|int }}.11"
+        host_octets: "11"
+      hosts:
+        tenjin.team[01:15].kokka.jp:
+    tsukuyomi:
+      vars:
+        ansible_host: "172.16.{{ team_number|int }}.12"
+        host_octets: "12"
+      hosts:
+        tsukuyomi.team[01:15].kokka.jp:
+    susanoo:
+      vars:
+        ansible_host: "172.16.{{ team_number|int }}.20"
+        host_octets: "20"
+      hosts:
+        susanoo.team[01:15].kokka.jp:
+    tokyo:
+      vars:
+        ansible_host: "192.168.35.139"
+        host_octets: "35.139"
+      hosts:
+        tokyo.kokka.jp:
+    yokohama:
+      vars:
+        ansible_host: "192.168.33.132"
+        host_octets: "33.132"
+      hosts:
+        yokohama.kokka.jp:
+    sapporo:
+      vars:
+        ansible_host: "192.168.43.141"
+        host_octets: "43.141"
+      hosts:
+        sapporo.kokka.jp:
+    anamori:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.42"
+        host_octets: "42"
+      hosts:
+        anamori.kokka.jp:
+    fushimi:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.42"
+        host_octets: "42"
+      hosts:
+        fushimi.kokka.jp:
+    fukutoku:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.42"
+        host_octets: "42"
+      hosts:
+        fukutoku.kokka.jp:
+    jintoku:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.42"
+        host_octets: "42"
+      hosts:
+        jintoku.kokka.jp:
+    kasama:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.42"
+        host_octets: "42"
+      hosts:
+        kasama.kokka.jp:
+    motonosumi:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.42"
+        host_octets: "42"
+      hosts:
+        motonosumi.kokka.jp:
+    namiyoke:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.42"
+        host_octets: "42"
+      hosts:
+        namiyoke.kokka.jp:
+    saijo:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.42"
+        host_octets: "42"
+      hosts:
+        saijo.kokka.jp:
+    shiwa:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.42"
+        host_octets: "42"
+      hosts:
+        shiwa.kokka.jp:
+    shusse:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.42"
+        host_octets: "42"
+      hosts:
+        shusse.kokka.jp:
+    taikodani:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.42"
+        host_octets: "42"
+      hosts:
+        taikodani.kokka.jp:
+    takahashi:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.42"
+        host_octets: "42"
+      hosts:
+        takahashi.kokka.jp:
+    takayama:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.42"
+        host_octets: "42"
+      hosts:
+        takayama.kokka.jp:
+    tamatukuri:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.42"
+        host_octets: "42"
+      hosts:
+        tamatukuri.kokka.jp:
+    takekoma:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.42"
+        host_octets: "42"
+      hosts:
+        takekoma.kokka.jp:
+    toyokawa:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.42"
+        host_octets: "42"
+      hosts:
+        toyokawa.kokka.jp:
+    yakyu:
+      vars:
+        ansible_host: "10.{{ team_number|int }}.1.42"
+        host_octets: "42"
+      hosts:
+        yakyu.kokka.jp:
+    dns1:
+      vars:
+        ansible_host: "172.16.0.1"
+        host_octets: "1"
+      hosts:
+        dns1.kokka.jp:
+    dns2:
+      vars:
+        ansible_host: "172.16.0.2"
+        host_octets: "2"
+      hosts:
+        dns2.kokka.jp:
+    vpn:
+      vars:
+        ansible_host: "172.28.0.16"
+        host_octets: "16"
+      hosts:
+        vpn.kokka.jp:
+    scoring:
+      vars:
+        ansible_host: "172.24.0.3"
+        host_octets: "3"
+      hosts:
+        scoring.kokka.jp:
+    deploy:
+      vars:
+        ansible_host: "172.16.0.4"
+        host_octets: "4"
+      hosts:
+        deploy.kokka.jp:
+    game:
+      vars:
+        ansible_host: "172.16.0.5"
+        host_octets: "5"
+      hosts:
+        game.kokka.jp:
+    choco:
+      vars:
+        ansible_host: "172.16.0.6"
+        host_octets: "6"
+      hosts:
+        choco.kokka.jp:
+    beat:
+      vars:
+        ansible_host: "172.24.0.7"
+        host_octets: "7"
+      hosts:
+        beat.kokka.jp:
+    ctf:
+      vars:
+        ansible_host: "172.24.0.8"
+        host_octets: "8"
+      hosts:
+        ctf.kokka.jp:
+          
+  # OS seperators, used for when group vars are needed
+    windows:
+      children:
+        izanagi:
+        choco:
+        izanami:
+        ugajin:
+        amaterasu:
+        fujin:
+        raijin:
+        tokyo:
+        yokohama:
+        dns1:
+        dns2:
+        anamori:
+        fushimi:
+        fukutoku:
+        jintoku:
+        kasama:
+        motonosumi:
+        namiyoke:
+        saijo:
+        shiwa:
+        shusse:
+        taikodani:
+        takahashi:
+        takayama:
+        tamatukuri:
+        takekoma:
+        toyokawa:
+        yakyu:
+
+    linux:
+      children:
+        hachiman:
+        kojin:
+        keubiko:
+        suijin:
+        tenjin:
+        tsukuyomi:
+        susanoo:
+        sapporo:
+        vpn:
+        scoring:
+        deploy:
+        game:
+        beat:
+        ctf:
+
+  # Hosts in for teams vs not teams
+    team_hosts:
+      vars:
+        no_dns: False
+      children:
+        suijin:
+        tenjin:
+        tsukuyomi:
+        amaterasu:
+        susanoo:
+        fujin:
+        raijin:
+        izanagi:
+        izanami:
+        ugajin:
+        uzume:
+        hachiman:
+        kojin:
+        keubiko:
+        fudo:
+        anamori:
+        fushimi:
+        fukutoku:
+        jintoku:
+        kasama:
+        motonosumi:
+        namiyoke:
+        saijo:
+        shiwa:
+        shusse:
+        taikodani:
+        takahashi:
+        takayama:
+        tamatukuri:
+        takekoma:
+        toyokawa:
+        yakyu:
+
+    mgmt_hosts:
+      vars:
+        no_dns: False
+      children:
+        beat:
+        ctf:
+        scoring:
+        tokyo:
+        yokohama:
+        sapporo:
+        vpn:
+        deploy:
+        game:
+        choco:
+        dns:
+          children:
+            dns1:
+            dns2:
+
+  # Below are the hosts seperated out into their individual networks
+    lan:
+      children:
+        izanagi:
+        izanami:
+        ugajin:
+        uzume:
+        hachiman:
+        kojin:
+        keubiko:
+        fudo:
+        anamori:
+        fushimi:
+        fukutoku:
+        jintoku:
+        kasama:
+        motonosumi:
+        namiyoke:
+        saijo:
+        shiwa:
+        shusse:
+        taikodani:
+        takahashi:
+        takayama:
+        tamatukuri:
+        takekoma:
+        toyokawa:
+        yakyu:
+      vars:
+        subbnet_ish: "10.{{ team_number|int }}.1."
+
+    cloud:
+      children:
+        suijin:
+        tenjin:
+        tsukuyomi:
+        amaterasu:
+        susanoo:
+        fujin:
+        raijin:
+      vars:
+        subbnet_ish: "172.16.{{ team_number|int }}."
+
+    mgmt:
+      children:
+        deploy:
+        game:
+        choco:
+        dns:
+      vars:
+        subbnet_ish: "172.16.0."
+
+    koth:
+      children:
+        tokyo:
+        yokohama:
+        sapporo:
+      vars:
+        subbnet_ish: "192.168."
+        no_dns: False
+
+    alt_mgmt:
+      children:
+        beat:
+        ctf:
+        scoring:
+      vars:
+        subbnet_ish: "172.24.0."
+        no_dns: False
+
+    vpn_net:
+      children:
+        vpn:
+      vars:
+        subbnet_ish: "172.28.0."
+        no_dns: False
+
+  # Weird shit that does not fall in other categories
+    team_koth:
+      children:
+        anamori:
+        fushimi:
+        fukutoku:
+        jintoku:
+        kasama:
+        motonosumi:
+        namiyoke:
+        saijo:
+        shiwa:
+        shusse:
+        taikodani:
+        takahashi:
+        takayama:
+        tamatukuri:
+        takekoma:
+        toyokawa:
+        yakyu:
+
+    no_ansible_hosts:
+      children:
+        uzume:  # This is the weird box
+    
+    router:
+      children:
+        fudo:
+          vars:
+            ansible_host: "10.100.0.{{ team_number|int + 100 }}"
+            ip_routing_switching_plain: "10.100.0.{{ team_number|int + 100 }}"
+            ip_routing_lan: "10.{{ team_number|int }}.1.254"
+            ip_mgmt_lan: "10.{{ team_number|int }}.1.7"

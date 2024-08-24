@@ -1,0 +1,17 @@
+---
+- name: Ensure chocolatey path exists
+  ansible.windows.win_file:
+    path: C:\tools\chocolatey.server\App_Data\Packages\
+    state: directory
+
+- name: Copy over nupkg files
+  ansible.windows.win_copy:
+    src: files/
+    dest: C:\tools\chocolatey.server\App_Data\Packages\
+
+- name: install chocolatey.server
+  ansible.builtin.include_tasks: install.yml
+
+- name: configure chocolatey.server
+  ansible.builtin.include_tasks: configure.yml
+  when: not ansible_check_mode  # majority of the tasks are win_lineinfile and will fail in check mode

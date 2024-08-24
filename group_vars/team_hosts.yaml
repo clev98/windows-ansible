@@ -1,0 +1,110 @@
+---
+# Users
+domain_admins:
+  - "TokugawaIemitsu"
+  - "HojoSadatoki"
+  - "AshikagaTakauji"
+  - "MinamotoNoSanetomo"
+domain_users:
+  - "TokugawaHideyoshi"
+  - "WatanabeKazan"
+  - "EraFusahide"
+  - "NagaoHarukage"
+  - "TokiYorinari"
+  - "YamauchiKazutoyo"
+  - "TaigenSessai"
+  - "WadaShinsuke"
+  - "EnomotoTakeaki"
+  - "NaoeKagetsuna"
+  - "TakedaShingen"
+  - "YamadaArinobu"
+local_admins:
+  - "jimmu"
+  - "suizei"
+  - "annei"
+  - "itoku"
+local_users:
+  - "kinmei"
+  - "bidatsu"
+  - "yomei"
+  - "sushun"
+  - "suiko"
+  - "jomei"
+  - "kogyoku"
+  - "kotoku"
+  - "saimei"
+  - "tenji"
+  - "kobun"
+  - "jito"
+  - "monmu"
+  - "gemei"
+
+database_username: "nopcommerce"
+database_password: "{{ team_password }}"
+
+# Domain Info
+netbios: "team{{ team_number }}"
+
+#########
+# LINUX #
+#########
+
+nix_add_users_accounts: 
+  - "{{ local_users }}"
+  - "{{ domain_users }}"
+nix_add_users_admin_accounts: 
+  - "{{ local_admins }}"
+  - "{{ domain_admins }}"
+nix_add_users_team_password: "{{ team_password }}"
+nix_add_users_team_salt: WeAreASecurityClubNotASecureClub
+
+###########
+# WINDOWS #
+###########
+# windows_create_local_users
+win_createlocalusers_local_admins: "{{ local_admins }}"
+win_createlocalusers_local_users: "{{ local_users }}"
+win_createlocalusers_team_password: "{{ team_password }}"
+
+# windows_deploy_dc
+win_deploydc_team_password: "{{ team_password }}"
+win_deploydc_domain: "{{ domain }}"
+win_deploydc_netbios: "{{ netbios }}"
+win_deploydc_domain_admins: "{{ domain_admins }}"
+win_deploydc_domain_users: "{{ domain_users }}"
+
+# windows_deploy_dns_server
+win_deploydnsserver_forwarders:
+  - "172.16.0.1"
+  - "172.16.0.2"
+win_deploydnsserver_working_dir: "{{ working_dir }}"
+
+# windows_join_domain
+win_joindomain_team_password: "{{ team_password }}"
+win_joindomain_netbios: "{{ netbios }}"
+win_joindomain_dc_ip: "{{ dc_ip|string}}"
+win_joindomain_domain: "{{ domain }}"
+
+# windows_deploy_second_dc
+win_deployseconddc_team_password: "{{ team_password }}"
+win_deployseconddc_domain: "{{ domain }}"
+win_deployseconddc_netbios: "{{ netbios }}"
+win_deployseconddc_main_dc_ip: "{{ dc_ip|string }}"
+
+# windows_deploy_nopcommerce
+win_deploynopcommerce_choco_server_source: "{{ choco_server_source }}"
+win_deploynopcommerce_working_dir: "{{ working_dir }}"
+win_deploynopcommerce_domain: "{{ domain }}"
+win_deploynopcommerce_team_password: "{{ team_password }}"
+win_deploynopcommerce_mssql_srv: "tenjin.{{ domain }}"
+win_deploynopcommerce_database_user: "{{ database_username }}"
+win_deploynopcommerce_database_pass: "{{ database_password }}"
+win_deploynopcommerce_database_name: "nopcommerce"
+
+# windows_deploy_hmail_server
+win_deployhmailserver_team_password: "{{ team_password }}"
+win_deployhmailserver_domain: "{{ domain }}"
+win_deployhmailserver_domain_users: "{{ domain_users }}"
+win_deployhmailserver_team_number: "{{ team_number }}"
+win_deployhmailserver_working_dir: "{{ working_dir }}"
+win_deployhmailserver_choco_server_source: "{{ choco_server_source }}"

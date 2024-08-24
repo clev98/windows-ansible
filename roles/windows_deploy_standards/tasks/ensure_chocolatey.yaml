@@ -1,0 +1,10 @@
+---
+- name: Ensure Chocolatey is Installed
+  chocolatey.chocolatey.win_chocolatey:
+    name: chocolatey
+
+- name: Set Chocolatey Source To Internal Repo
+  chocolatey.chocolatey.win_chocolatey_source:
+    name: "{{ win_deploystandards_choco_server_source }}"
+    state: present
+    source: "{{ win_deploystandards_choco_server_url }}"

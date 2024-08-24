@@ -1,0 +1,42 @@
+---
+- name: Ensure user advisor user is present
+  ansible.windows.win_user:
+    name: advisor
+    password: SeCRetTunne154!
+    state: present
+    groups:
+      - Users
+      - Remote Desktop Users
+      - Remote Management Users
+      
+- name: Create first challenge
+  ansible.builtin.include_tasks: first_challenge.yaml
+  
+- name: Create second challenge
+  ansible.builtin.include_tasks: second_challenge.yaml
+  
+- name: send garbo
+  ansible.builtin.include_tasks: deploy_garbo.yaml
+  
+- name: send amazing
+  ansible.builtin.include_tasks: deploy_memes.yaml
+
+- name: Copy secret password over
+  ansible.windows.win_copy:
+    src: DC_password.txt
+    dest: 'C:\Users\DC_password.txt'
+    
+- name: config perms
+  ansible.windows.win_acl:
+    user: "{{ win_joindomain_domain }}\\headadvisor"
+    path: 'C:\Users\DC_password.txt'
+    type: allow
+    rights: read
+    
+- name: config perms
+  ansible.windows.win_acl:
+    user: advisor
+    path: 'C:\Users\DC_password.txt'
+    type: deny
+    rights: read, write
+    

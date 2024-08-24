@@ -1,0 +1,49 @@
+- hosts: izanagi.team01.kokka.jp
+  gather_facts: no
+  tasks:
+    - name: blah
+      debug:
+        msg: "{{ groups | type_debug  }}"
+      delegate_to: localhost
+    - name: blah2
+      debug:
+        msg: "{{ group_names }}"
+      delegate_to: localhost
+    - name: reeee
+      debug:
+        msg: "{{ group_names |  select('match', 'team') | join() }}"
+      delegate_to: localhost
+    - name: hosts
+      debug:
+        msg: "{{ groups['team01'] }}"
+      delegate_to: localhost
+      # Outputs in list form
+    - name: hosts
+      debug:
+        msg: "{{ groups[group_names |  select('match', 'team') | join()] | type_debug}}"
+      delegate_to: localhost
+    - name: shortname
+      debug:
+        msg: "{{ hostvars['izanagi.team01.kokka.jp']['inventory_hostname_short'] }}"
+    - name: ip
+      debug:
+        msg: "{{ hostvars['izanagi.team01.kokka.jp']['ansible_host'] }}"
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: do a thing
+      ansible.builtin.set_fact:
+        dns_records: "{{ lookup('template', 'weird_vars/dns_hosts.yml') | from_yaml }}"
+    - name: 
+      debug:
+        msg: "{{ hostvars['localhost']['dns_records'] }}"
+
+- hosts: izanagi.team01.kokka.jp
+  gather_facts: no
+  tasks:
+    - name: do a thing
+      ansible.builtin.set_fact:
+        dns_records: "{{ lookup('template', 'weird_vars/dns_hosts.yml') | from_yaml }}"
+    - name: 
+      debug:
+        msg: "{{ hostvars['izanagi.team01.kokka.jp']['dns_records'] }}"

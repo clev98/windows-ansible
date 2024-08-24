@@ -1,0 +1,10 @@
+---
+# windows_deploy_nopcommerce
+win_deploynopcommerce_choco_server_source: "{{ choco_server_source }}"
+win_deploynopcommerce_working_dir: "{{ working_dir }}"
+win_deploynopcommerce_domain: "{{ domain }}"
+win_deploynopcommerce_team_password: "{{ team_password }}"
+win_deploynopcommerce_mssql_srv: "tenjin.{{ domain }}"
+win_deploynopcommerce_database_user: "{{ database_username }}"
+win_deploynopcommerce_database_pass: "{{ database_password }}"
+win_deploynopcommerce_database_name: "nop_raijin"

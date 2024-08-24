@@ -1,0 +1,3 @@
+proxy_hosts:
+    "/": "tsukuyomi.team{{ team_number }}.kokka.jp"
+    "/store/": "susanoo.team{{ team_number }}.kokka.jp/"

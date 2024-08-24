@@ -1,0 +1,20 @@
+# inventory.config file in YAML format
+plugin: ansible.builtin.constructed
+strict: yes
+
+groups:
+    team01: "'team01' in inventory_hostname or 'anamori' in inventory_hostname"
+    team02: "'team02' in inventory_hostname or 'fushimi' in inventory_hostname"
+    team03: "'team03' in inventory_hostname or 'fukutoku' in inventory_hostname"
+    team04: "'team04' in inventory_hostname or 'jintoku' in inventory_hostname"
+    team05: "'team05' in inventory_hostname or 'kasama' in inventory_hostname"
+    team06: "'team06' in inventory_hostname or 'motonosumi' in inventory_hostname"
+    team07: "'team07' in inventory_hostname or 'namiyoke' in inventory_hostname"
+    team08: "'team08' in inventory_hostname or 'saijo' in inventory_hostname"
+    team09: "'team09' in inventory_hostname or 'shiwa' in inventory_hostname"
+    team10: "'team10' in inventory_hostname or 'shusse' in inventory_hostname"
+    team11: "'team11' in inventory_hostname or 'taikodani' in inventory_hostname"
+    team12: "'team12' in inventory_hostname or 'takahashi' in inventory_hostname"
+    team13: "'team13' in inventory_hostname or 'takayama' in inventory_hostname"
+    team14: "'team14' in inventory_hostname or 'tamatukuri' in inventory_hostname"
+    team15: "'team15' in inventory_hostname or 'takekoma' in inventory_hostname"

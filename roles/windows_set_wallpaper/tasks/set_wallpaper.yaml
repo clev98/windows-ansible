@@ -1,0 +1,28 @@
+---
+- name: Copy Wallpaper to Working Directory
+  ansible.windows.win_copy:
+    src: "files/{{ win_setwallpaper_file_name }}"
+    dest: "{{ working_dir }}/{{ win_setwallpaper_file_name }}"
+
+- name: Change Desktop Registry Key
+  ansible.windows.win_regedit:
+    path: HKCU:\Control Panel\Desktop
+    name: Wallpaper
+    data: "{{ win_setwallpaper_working_dir }}/{{ win_setwallpaper_file_name }}"
+  register: regedit_stat
+  vars:
+    ansible_become: yes
+    ansible_become_method: runas
+    ansible_become_user: "{{ item.name|default(item) }}"
+    ansible_become_password: "{{ item.password|default(win_setwallpaper_team_password) }}"
+  loop:
+    "{{ win_setwallpaper_users }}"
+
+- name: Wait for Registry to Settle
+  pause: 
+    seconds: 10
+  when: regedit_stat.data_changed
+
+- name: Update System Parameters
+  ansible.windows.win_shell: rundll32.exe user32.dll, UpdatePerUserSystemParameters, 0, $false
+  when: regedit_stat.data_changed

@@ -1,0 +1,17 @@
+---
+- hosts: windows
+  gather_facts: no
+  tasks:
+    - name: Windows ping test
+      win_ping:
+  vars:
+#    ansible_user: Administrator
+#    ansible_password: "{{ team_password }}"
+
+- hosts: linux
+  gather_facts: no
+  tasks:
+    - name: Linux ping test
+      ping:
+
+

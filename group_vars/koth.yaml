@@ -1,0 +1,39 @@
+---
+team_password: "aw8kfE5menCYjU5aAffXbGVufMU56mdRGbN!"
+
+domain_admins:
+  - {name: "Emperor", password: "3uyugxAAEUC7r7N!"}
+  - {name: "Admin", password: "KYXtqxd9CdWnphud2fBNMEUf!"}
+  - {name: "Administrator", password: "{{ team_password }}"}
+domain_users:
+  - {name: "HeadAdvisor", password: "E9JJ6FFue6Aw3AK!"}
+
+
+###########
+# WINDOWS #
+###########
+win_setwallpaper_users: "{{ domain_admins }}"
+
+# windows_deploy_dc
+win_deploydc_team_password: "{{ team_password }}"
+win_deploydc_domain: "{{ domain }}"
+win_deploydc_netbios: "{{ enterprise_netbios }}"
+win_deploydc_domain_admins: "{{ domain_admins }}"
+win_deploydc_domain_users: "{{ domain_users }}"
+
+# windows_deploy_dns_server
+win_deploydnsserver_forwarders:
+  - "172.16.0.1"
+  - "172.16.0.2"
+win_deploydnsserver_working_dir: "{{ working_dir }}"
+
+# windows_join_domain
+win_joindomain_team_password: "{{ team_password }}"
+win_joindomain_netbios: "{{ enterprise_netbios }}"
+win_joindomain_dc_ip: "{{ enterprise_dc_ip|string }}"
+win_joindomain_domain: "{{ domain }}"
+
+# windows_create_local_users
+win_createlocalusers_local_admins:
+win_createlocalusers_local_users:
+win_createlocalusers_team_password: "{{ team_password }}"

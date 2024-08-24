@@ -1,0 +1,4 @@
+# windows_deploy_dns_server
+win_deploydnsserver_forwarders:
+  - "1.1.1.1"
+win_deploydnsserver_working_dir: "{{ working_dir }}"

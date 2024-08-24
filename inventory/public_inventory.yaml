@@ -1,0 +1,16 @@
+---
+all:
+  children:
+    public:
+      vars:
+        no_dns: True
+        ansible_become: yes
+        ansible_user: whiteteam
+        ansible_ssh_private_key_file: ~/.ssh/ists_deploy_key
+      hosts:
+        deploy.ists.io:
+        ctf.ists.io:
+        vpn.ists.io:
+        scoring.ists.io:
+        beat.ists.io:
+        game.ists.io:

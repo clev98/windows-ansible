@@ -1,0 +1,14 @@
+---
+# tasks file for roles/windows-rearm
+
+- name: Rearm windows
+  win_shell: slmgr -rearm
+  async: 5 # Give it a little time to settle
+  poll: 0
+
+- name: Let license settle
+  pause:
+    seconds: 30
+
+- name: Restarting Windows
+  win_reboot:

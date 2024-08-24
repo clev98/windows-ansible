@@ -1,0 +1,110 @@
+---
+- name: Copy powershell to share
+  ansible.windows.win_copy:
+    src: meme.jpg
+    dest: 'C:\Users\advisor.YOKOHAMA\sharing\blaster.jpg'
+    
+- name: Copy powershell to share
+  ansible.windows.win_copy:
+    src: meme.png
+    dest: 'C:\Users\advisor.YOKOHAMA\sharing\corporation.png'
+    
+- name: Copy powershell to share
+  ansible.windows.win_copy:
+    src: meme2.png
+    dest: 'C:\Users\advisor.YOKOHAMA\sharing\buzz.png'
+    
+- name: Copy powershell to share
+  ansible.windows.win_copy:
+    src: meme3.png
+    dest: 'C:\Users\advisor.YOKOHAMA\sharing\ninja.png'
+    
+- name: Copy powershell to share
+  ansible.windows.win_copy:
+    src: meme4.png
+    dest: 'C:\Users\advisor.YOKOHAMA\sharing\ending.png'
+    
+- name: Copy powershell to share
+  ansible.windows.win_copy:
+    src: meme5.png
+    dest: 'C:\Users\advisor.YOKOHAMA\sharing\rick.png'
+    
+- name: Copy powershell to share
+  ansible.windows.win_copy:
+    src: meme6.png
+    dest: 'C:\Users\advisor.YOKOHAMA\sharing\pills.png'
+    
+- name: Copy powershell to share
+  ansible.windows.win_copy:
+    src: meme7.png
+    dest: 'C:\Users\advisor.YOKOHAMA\sharing\freedom.png'
+    
+- name: Copy powershell to share
+  ansible.windows.win_copy:
+    src: meme8.png
+    dest: 'C:\Users\advisor.YOKOHAMA\sharing\sponge.png'
+    
+- name: Copy powershell to share
+  ansible.windows.win_copy:
+    src: meme9.png
+    dest: 'C:\Users\advisor.YOKOHAMA\sharing\uno.png'
+    
+- name: Copy powershell to share
+  ansible.windows.win_copy:
+    src: meme10.png
+    dest: 'C:\Users\advisor.YOKOHAMA\sharing\button.png'
+    
+- name: Copy powershell to share
+  ansible.windows.win_copy:
+    src: meme11.png
+    dest: 'C:\Users\advisor.YOKOHAMA\sharing\stonk.png'
+    
+- name: Copy powershell to share
+  ansible.windows.win_copy:
+    src: meme12.png
+    dest: 'C:\Users\advisor.YOKOHAMA\sharing\poobear.png'
+    
+- name: Copy powershell to share
+  ansible.windows.win_copy:
+    src: meme13.png
+    dest: 'C:\Users\advisor.YOKOHAMA\sharing\yesno.png'
+    
+- name: Copy powershell to share
+  ansible.windows.win_copy:
+    src: meme14.png
+    dest: 'C:\Users\advisor.YOKOHAMA\sharing\andre.png'
+    
+- name: Copy powershell to share
+  ansible.windows.win_copy:
+    src: meme15.png
+    dest: 'C:\Users\advisor.YOKOHAMA\sharing\buttefly.png'
+    
+- name: Copy powershell to share
+  ansible.windows.win_copy:
+    src: meme16.png
+    dest: 'C:\Users\advisor.YOKOHAMA\sharing\cyber.png'
+    
+- name: Copy powershell to share
+  ansible.windows.win_copy:
+    src: meme.gif
+    dest: 'C:\Users\advisor.YOKOHAMA\sharing\ninja.gif'
+    
+- name: Copy powershell to share
+  ansible.windows.win_copy:
+    src: meme17.png
+    dest: 'C:\Users\advisor.YOKOHAMA\sharing\commit.png
+    
+- name: Copy powershell to share
+  ansible.windows.win_copy:
+    src: meme18.png
+    dest: 'C:\Users\advisor.YOKOHAMA\sharing\domino.png'
+    
+- name: Copy powershell to share
+  ansible.windows.win_copy:
+    src: meme19.png
+    dest: 'C:\Users\advisor.YOKOHAMA\sharing\cars.png'
+    
+- name: Copy powershell to share
+  ansible.windows.win_copy:
+    src: meme20.png
+    dest: 'C:\Users\advisor.YOKOHAMA\sharing\enhance.png'

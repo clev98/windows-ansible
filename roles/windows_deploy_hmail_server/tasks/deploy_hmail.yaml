@@ -1,0 +1,17 @@
+---
+- name: Copy hMail Server Configure Script
+  ansible.windows.win_template:
+    src: templates/configure.j2
+    dest: '{{ win_deployhmailserver_working_dir }}\Setup-hMail.ps1'
+
+- name: Install hMail Server
+  chocolatey.chocolatey.win_chocolatey:
+    name: hmailserver
+    state: present
+    source: "{{ win_deployhmailserver_choco_server_source }}"
+
+- name: Run hMail Installation Script
+  ansible.windows.win_command: 'powershell.exe {{ win_deployhmailserver_working_dir }}\Setup-hMail.ps1'
+
+- name: Remove hMail Installation Script
+  ansible.windows.win_command: 'powershell.exe "Remove-Item {{ win_deployhmailserver_working_dir }}\Setup-hMail.ps1"'

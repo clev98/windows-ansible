@@ -1,0 +1,24 @@
+---
+- name: Ensure DNS is Installed
+  include_tasks: install_dns.yaml
+
+- name: Build DNS Records
+  ansible.builtin.set_fact:
+    dns_records: "{{ lookup('template', 'files/dns_hosts.yaml') | from_yaml }}"
+
+- name: Build DNS Zones
+  ansible.builtin.set_fact:
+    dns_zones: "{{ lookup('template', 'files/dns_zones.yaml') | from_yaml | unique }}"
+
+- name: Build DNS Domains
+  ansible.builtin.set_fact:
+    dns_domains: "{{ dns_records | map(attribute='domain') | unique }}"
+
+- name: Ensure DNS Forwarders Are Correctly Configured
+  ansible.builtin.include_tasks: dns_forwarders.yaml
+
+- name: Ensure DNS Zones Exist
+  ansible.builtin.include_tasks: dns_zones.yaml
+
+- name: Ensure DNS Records Exist
+  ansible.builtin.include_tasks: dns_records.yaml

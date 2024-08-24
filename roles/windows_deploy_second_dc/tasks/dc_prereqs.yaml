@@ -1,0 +1,33 @@
+---
+- name: Ensure DNS Points to Management DNS
+  ansible.windows.win_dns_client:
+    adapter_names: '*'
+    ipv4_addresses:
+      - "{{ win_deployseconddc_main_dc_ip|string }}"
+
+- name: Set Admin/Administrator Password
+  ansible.windows.win_user:
+    name: "{{ item.name|default(item) }}"
+    state: present
+    password: "{{ item.password|default(win_deployseconddc_team_password) }}"
+    update_password: always
+  loop:
+    - Admin
+    - Administrator
+
+- name: Install ADDS
+  ansible.windows.win_feature:
+    name: AD-Domain-Services
+    include_management_tools: True
+    include_sub_features: True
+    state: present
+  register: services_result
+
+- name: Prevent WinRM Connections Until Installation is Finished
+  ansible.windows.win_service:
+    name: WinRM
+    start_mode: delayed
+
+- name: Restart If Needed
+  ansible.windows.win_reboot:
+  when: services_result.reboot_required

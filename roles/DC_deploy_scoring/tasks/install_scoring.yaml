@@ -1,0 +1,10 @@
+---
+- name: Copy Over first scoring
+  ansible.windows.win_copy:
+    src: scoring_1.html
+    dest: 'C:\inetpub\wwwroot\scoring_1.html'
+    
+- name: Copy Over second scoring
+  ansible.windows.win_copy:
+    src: scoring_2.html
+    dest: 'C:\inetpub\wwwroot\scoring_2.html'

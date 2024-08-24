@@ -1,0 +1,37 @@
+---
+- name: Install IIS
+  ansible.windows.win_feature:
+    name: Web-Server
+    state: present
+    include_sub_features: yes
+    include_management_tools: yes
+  register: services_result
+
+#- name: Allow DefaultAppPool to Edit SQL Server
+#  ansible.windows.win_shell: Invoke-Sqlcmd "CREATE LOGIN [IIS AppPool\DefaultAppPool] FROM windows"
+#  become: yes
+#  become_user: whiteteam
+#  become_method: runas
+#  when: registry.data_changed
+
+#- name: Allow DefaultAppPool to Edit SQL Server
+#  ansible.windows.win_shell: Invoke-Sqlcmd "EXEC sp_addsrvrolemember N'IIS AppPool\DefaultAppPool', sysadmin"
+#  become: yes
+#  become_user: whiteteam
+#  become_method: runas
+#  when: registry.data_changed
+
+- name: Install .NET Windows Hosting Bundle
+  chocolatey.chocolatey.win_chocolatey:
+    name: dotnet-windowshosting
+    state: present
+    source: "{{ win_deploynopcommerce_choco_server_source }}"
+
+- name: Reboot if Needed
+  ansible.windows.win_reboot:
+  when: services_result.reboot_required
+
+- name: Remove Default Web Site
+  community.windows.win_iis_website:
+    name: "Default Web Site"
+    state: absent

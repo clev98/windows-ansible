@@ -1,0 +1,44 @@
+---
+- name: Restart Windows
+  ansible.windows.win_reboot:
+  delegate_to: "raijin.{{ domain }}"
+
+- name: Zip Nopcommerce Files
+  ansible.windows.win_shell: 'Compress-Archive -Path C:\inetpub\wwwroot\nopcommerce -DestinationPath {{ win_deploynopcommerce_working_dir }}/nop2.zip -Force'
+  delegate_to: "raijin.{{ domain }}"
+
+- name: Fetch Nopcommerce Install
+  ansible.builtin.fetch:
+    src: '{{ win_deploynopcommerce_working_dir }}/nop2.zip'
+    dest: roles/windows_deploy_nopcommerce_copy/files/
+    flat: yes
+  delegate_to: "raijin.{{ domain }}"
+
+- name: Copy Over Nopcommerce
+  ansible.windows.win_copy:
+    src: files/nop2.zip
+    dest: "{{ win_deploynopcommerce_working_dir }}/nop.zip"
+
+- name: Unzip nop.zip
+  community.windows.win_unzip:
+    src: "{{ win_deploynopcommerce_working_dir }}/nop.zip"
+    dest: C:\inetpub\wwwroot\nopcommerce\
+    creates: C:\inetpub\wwwroot\nopcommerce\
+
+- name: "Give DefaultAppPool File Access"
+  ansible.windows.win_acl:
+    path: C:\inetpub\wwwroot\nopcommerce\
+    user: IIS AppPool\DefaultAppPool
+    rights: Read,Write,Modify,FullControl,Delete
+    type: allow
+
+- name: Create Nopcommerce IIS Site
+  community.windows.win_iis_website:
+    name: nopcommerce
+    state: started
+    port: 80
+    ip: '*'
+    hostname: "{{ inventory_hostname }}"
+    application_pool: DefaultAppPool
+    physical_path: C:\inetpub\wwwroot\nopcommerce\
+  register: output

@@ -1,0 +1,19 @@
+---
+- name: Make A Records
+  community.windows.win_dns_record:
+    name: "{{ item.short_name }}"
+    type: "A"
+    value: "{{ item.ip }}"
+    zone: "{{ item.domain }}"
+    state: present
+  loop:
+    "{{ dns_records }}"
+
+- name: Make PTR Records
+  community.windows.win_dns_record:
+    name: "{{ item.host_octets }}"
+    type: "PTR"
+    value: "{{ item.fqdn }}"
+    zone: "{{ item.ptr }}"
+  loop:
+    "{{ dns_records }}"

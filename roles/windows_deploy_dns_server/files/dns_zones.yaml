@@ -1,0 +1,58 @@
+---
+# Check if the host is a team box
+{% if group_names |  map('regex_search', 'team[0-9]{2}') | select('match', 'team') | join() in group_names -%}
+# Get the full list of boxes on a team
+{% for host in groups[group_names |  map('regex_search', 'team[0-9]{2}') | select('match', 'team') | join()] %}
+{% if 'team' in host %}
+
+{% set short_name = hostvars[host]['inventory_hostname_short'] %}
+{% set domain = host | replace(short_name, '') | replace('.', '', 1) %}
+- ptr: "{{ hostvars[host]['subbnet_ish'].split('.') | reverse() | join('.') | replace('.', '', 1) }}.in-addr.arpa"
+  
+  {% set subnet = hostvars[host]['subbnet_ish'].split('.')[:-1] %}
+  {% set z_count = hostvars[host]['host_octets'].split('.')|length %}
+
+  {% for z in range(z_count) %}
+  {{ subnet.append('0') }}
+  {% endfor %}
+
+  {% if z_count == 1 %}
+  {% set subnet = subnet|join('.') + '/24' %}
+  {% elif z_count == 2 %}
+  {% set subnet = subnet|join('.') + '/16' %}
+  {% elif z_count == 3 %}
+  {% set subnet = subnet|join('.') + '/8' %}
+  {% endif %}
+
+  subnet: "{{ subnet }}"
+{% endif %}
+{% endfor %}
+# Host is not a member of a team, we want all hosts in this case
+{% else -%}
+
+{% for host in groups['all'] %}
+{% if not hostvars[host]['no_dns'] -%}
+
+{% set short_name = hostvars[host]['inventory_hostname_short'] %}
+{% set domain = host | replace(short_name, '') | replace('.', '', 1) %}
+- ptr: "{{ hostvars[host]['subbnet_ish'].split('.') | reverse() | join('.') | replace('.', '', 1) }}.in-addr.arpa"
+
+  {% set subnet = hostvars[host]['subbnet_ish'].split('.')[:-1] %}
+  {% set z_count = hostvars[host]['host_octets'].split('.')|length %}
+
+  {% for z in range(z_count) %}
+  {{ subnet.append('0') }}
+  {% endfor %}
+
+  {% if z_count == 1 %}
+  {% set subnet = subnet|join('.') + '/24' %}
+  {% elif z_count == 2 %}
+  {% set subnet = subnet|join('.') + '/16' %}
+  {% elif z_count == 3 %}
+  {% set subnet = subnet|join('.') + '/8' %}
+  {% endif %}
+
+  subnet: "{{ subnet }}"
+{% endif %}
+{% endfor %}
+{% endif %}

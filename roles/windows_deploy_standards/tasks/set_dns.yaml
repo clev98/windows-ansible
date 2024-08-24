@@ -1,0 +1,5 @@
+- name: Ensure DNS Points to Management DNS
+  ansible.windows.win_dns_client:
+    adapter_names: '*'
+    ipv4_addresses:
+      - "{{ win_deploystandards_mgmt_dns }}"

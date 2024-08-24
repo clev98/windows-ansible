@@ -1,0 +1,15 @@
+---
+- name: Install .NET 3.5
+  ansible.windows.win_feature:
+    name: NET-Framework-Core
+    state: present
+
+- name: Allow SMTP
+  community.windows.win_firewall_rule:
+    name: SMTP
+    localport: 25
+    action: allow
+    direction: in
+    protocol: tcp
+    state: present
+    enabled: yes

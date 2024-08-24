@@ -1,0 +1,28 @@
+---   
+- name: Add IIS read rights for scoring_1
+  ansible.windows.win_acl:
+    user: IIS_IUSRS
+    path: C:\inetpub\wwwroot\scoring_1.html
+    type: allow
+    rights: read
+ 
+- name: Add IIS read rights for scoring_2
+  ansible.windows.win_acl:
+    user: IIS_IUSRS
+    path: C:\inetpub\wwwroot\scoring_2.html
+    type: allow
+    rights: read
+
+- name: allow koth1 user
+  ansible.windows.win_acl:
+    user: "{{ win_joindomain_domain }}\\prince"
+    path: C:\inetpub\wwwroot\scoring_1.html
+    type: allow
+    rights: read,write
+    
+- name: allow koth2 user
+  ansible.windows.win_acl:
+    user: "{{ win_joindomain_domain }}\\Admin"
+    path: C:\inetpub\wwwroot\scoring_2.html
+    type: allow
+    rights: read,write

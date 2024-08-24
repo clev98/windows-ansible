@@ -1,0 +1,6 @@
+---
+- name: Configure hMail Dependencies 
+  ansible.builtin.include_tasks: configure_dependencies.yaml
+
+- name: Install hMail
+  ansible.builtin.include_tasks: deploy_hmail.yaml

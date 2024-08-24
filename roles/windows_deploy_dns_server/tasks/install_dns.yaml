@@ -1,0 +1,7 @@
+---
+- name: Ensure DNS is Installed
+  win_feature:
+    name: DNS
+    include_management_tools: True
+    include_sub_features: True
+    state: present

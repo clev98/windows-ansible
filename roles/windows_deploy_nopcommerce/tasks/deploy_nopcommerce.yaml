@@ -1,0 +1,39 @@
+---
+
+- name: Copy Over Nopcommerce
+  ansible.windows.win_copy:
+    src: files/nop.zip
+    dest: "{{ win_deploynopcommerce_working_dir }}/nop.zip"
+
+- name: Unzip nop.zip
+  community.windows.win_unzip:
+    src: "{{ win_deploynopcommerce_working_dir }}/nop.zip"
+    dest: C:\inetpub\wwwroot\nopcommerce\
+    creates: C:\inetpub\wwwroot\nopcommerce\
+
+- name: "Give DefaultAppPool File Access"
+  ansible.windows.win_acl:
+    path: C:\inetpub\wwwroot\nopcommerce\
+    user: IIS AppPool\DefaultAppPool
+    rights: Read,Write,Modify,FullControl,Delete
+    type: allow
+
+- name: Create Nopcommerce IIS Site
+  community.windows.win_iis_website:
+    name: nopcommerce
+    state: started
+    port: 80
+    ip: '*'
+    hostname: "{{ inventory_hostname }}"
+    application_pool: DefaultAppPool
+    physical_path: C:\inetpub\wwwroot\nopcommerce\
+  register: output
+
+- name: Install Nopcommerce Via Selenium
+  ansible.windows.win_command: "python {{ win_deploynopcommerce_working_dir }}/main.py"
+  when: output.changed
+  become: yes
+  become_user: whiteteam
+  become_method: runas
+  async: 120
+  ignore_errors: yes

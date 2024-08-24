@@ -1,0 +1,39 @@
+---
+- name: Set Administrator/Admin Users
+  ansible.windows.win_user:
+    name: "{{ item.name|default(item) }}"
+    state: present
+    password: "{{ item.password|default(win_createlocalusers_team_password) }}"
+    update_password: always
+    groups:
+      - Users
+      - Administrators
+      - Remote Management Users
+  loop:
+    - Administrator
+    - Admin
+
+- name: Add Local Administrative Users
+  ansible.windows.win_user:
+    name: "{{ item.name|default(item) }}"
+    state: present
+    password: "{{ item.password|default(win_createlocalusers_team_password) }}"
+    update_password: always
+    groups:
+      - Users
+      - Administrators
+      - Remote Management Users
+  loop:
+    "{{ win_createlocalusers_local_admins if win_createlocalusers_local_admins is iterable else [] }}"
+
+- name: Add Local Users
+  ansible.windows.win_user:
+    name: "{{ item.name|default(item) }}"
+    state: present
+    password: "{{ item.password|default(win_createlocalusers_team_password) }}"
+    update_password: always
+    groups:
+      - Users
+      - Remote Management Users
+  loop: 
+    "{{ win_createlocalusers_local_users if win_createlocalusers_local_users is iterable else [] }}"

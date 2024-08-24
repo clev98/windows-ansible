@@ -1,0 +1,23 @@
+---
+working_dir: 'C:\Temp\Working\Ansible'
+choco_server_source: "internal_repo"
+enterprise_netbios: "KOKKA"
+enterprise_dc_ip: "192.168.35.139"
+
+# windows_set_wallpaper
+win_setwallpaper_working_dir: "{{ working_dir }}"
+win_setwallpaper_file_name: "fox.jpg"
+
+# windows_deploy_standards
+win_deploystandards_choco_server_source: "{{ choco_server_source }}"
+win_deploystandards_choco_server_url: "http://choco.kokka.jp/chocolatey"
+win_deploystandards_mgmt_dns: "172.16.0.1"
+win_deploystandards_working_dir: "{{ working_dir }}"
+
+# Ansible variables
+ansible_connection: psrp
+ansible_psrp_cert_validation: ignore
+ansible_psrp_protocol: https
+ansible_psrp_auth: ntlm
+ansible_psrp_credssp_auth_mechanism: ntlm
+become_method: runas

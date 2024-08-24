@@ -1,0 +1,77 @@
+---
+- name: Ensure user prince user is present
+  community.windows.win_domain_user:
+    name: prince
+    password: SeCRetTunne154!
+    state: present
+    user_cannot_change_password: yes
+    groups:
+      - Users
+      - Remote Desktop Users
+      - Remote Management Users
+
+- name: Create prince directory
+  ansible.windows.win_file:
+    path: "{{ win_joindomain_domain }}\\prince"
+    state: directory      
+
+- name: deploy hidden volume
+  ansible.windows.win_copy:
+    src: scroll.txt
+    dest: 'C:\Users\prince\scroll.txt'
+    
+- name: deploy hidden volume again in case break
+  ansible.windows.win_copy:
+    src: scroll.txt
+    dest: 'C:\Users\prince\writing.exe'
+    
+- name: deploy hidden volume third time in case break
+  ansible.windows.win_copy:
+    src: scroll.txt
+    dest: 'C:\Users\prince\storage.sh'
+    
+- name: deploy keyfiles
+  ansible.windows.win_copy:
+    src: awesome.gif
+    dest: 'C:\Users\prince\poster.gif'
+    
+- name: deploy keyfiles 2
+  ansible.windows.win_copy:
+    src: ISTSfix.png
+    dest: 'C:\Users\prince\poster.png'
+
+- name: give perms
+  ansible.windows.win_acl:
+    user: everyone
+    path: 'C:\Users\prince\scroll.txt'
+    type: allow
+    rights: read
+
+- name: give perms
+  ansible.windows.win_acl:
+    user: "{{ win_joindomain_domain }}\\prince"
+    path: 'C:\Users\prince\writing.exe'
+    type: deny
+    rights: write
+
+- name: give perms
+  ansible.windows.win_acl:
+    user: Everyone
+    path: 'C:\Users\prince\storage.sh'
+    type: allow
+    rights: FullControl
+
+- name: give perms
+  ansible.windows.win_acl:
+    user: everyone
+    path: 'C:\Users\prince\poster.gif'
+    type: allow
+    rights: read
+    
+- name: give perms
+  ansible.windows.win_acl:
+    user: everyone
+    path: 'C:\Users\prince\poster.png'
+    type: allow
+    rights: read
+    

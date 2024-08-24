@@ -1,0 +1,15 @@
+---
+- name: Enable Firewall (> Windows 7/2012)
+  community.windows.win_firewall:
+    state: enabled
+    profiles:
+    - Domain
+    - Private
+    - Public
+  when: ansible_distribution_major_version|int > 6
+
+- name: Enable Firewall (<= Windows 7/2012)
+  ansible.windows.win_command: cmd.exe
+  args:
+    stdin: 'netsh advfirewall set allprofiles state on'
+  when: ansible_distribution_major_version|int <= 6
